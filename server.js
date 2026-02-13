@@ -9,7 +9,7 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-    origin: ["http://localhost:3000", "https://your-netlify-app-url.netlify.app"], // Dono allow karo
+    origin: ["http://localhost:3000", "https://stalwart-smakager-f487c2.netlify.app"], // Dono allow karo
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type'],
     exposedHeaders: ['Content-Disposition'] // Ye line zaroori hai file download ke liye
