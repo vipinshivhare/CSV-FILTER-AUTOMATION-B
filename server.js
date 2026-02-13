@@ -9,9 +9,10 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ["http://localhost:3000", "https://your-netlify-app-url.netlify.app"], // Dono allow karo
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Content-Type'],
+    exposedHeaders: ['Content-Disposition'] // Ye line zaroori hai file download ke liye
 }));
 app.use(express.json());
 
@@ -22,7 +23,10 @@ const upload = multer({ storage: storage });
 app.post('/get-headers', upload.single('file'), (req, res) => {
     if (!req.file) return res.status(400).send("File missing");
     
-    const stream = Readable.from(req.file.buffer.toString());
+    // const stream = Readable.from(req.file.buffer.toString());
+    const stream = new Readable();
+    stream.push(req.file.buffer);
+    stream.push(null);
     let headersSent = false;
 
     stream.pipe(csv())
@@ -125,4 +129,6 @@ app.post('/filter-csv', upload.single('file'), (req, res) => {
         });
 });
 
-app.listen(8000, '0.0.0.0', () => console.log(`🚀 Backend running on http://localhost:8000`));
+// app.listen(8000, '0.0.0.0', () => console.log(`🚀 Backend running on http://localhost:8000`));
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, '0.0.0.0', () => console.log(`🚀 Backend running on port ${PORT}`));
