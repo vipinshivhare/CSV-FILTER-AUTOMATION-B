@@ -129,6 +129,9 @@ app.post('/filter-csv', upload.single('file'), (req, res) => {
         });
 });
 
+// Backend main file (index.js) mein add karein
+app.get('/', (req, res) => res.send("MASAI-CSV-GENIUS API is Live! 🚀"));
+
 // app.listen(8000, '0.0.0.0', () => console.log(`🚀 Backend running on http://localhost:8000`));
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, '0.0.0.0', () => console.log(`🚀 Backend running on port ${PORT}`));
